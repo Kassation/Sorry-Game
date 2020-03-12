@@ -27,11 +27,15 @@
 ;;;   if same ==> cannot make move
 ;;;   if different ==> knock other piece back to start
 
+(piecePosition Red1 21)
+(piecePosition Red2 22)
+(piecePosition Red3 23)
+(piecePosition Red4 34)
 
 ;;; yellow
 ;;; 2/23: still think we need to define "YellowPieces" first?
 (isa YellowPieces FirstOrderCollection)
-(isa YellowPieces BoardPieces)
+;;; (isa YellowPieces BoardPieces)
 (isa Yellow1 YellowPieces)
 (isa Yellow2 YellowPieces)
 (isa Yellow3 YellowPieces)
@@ -44,60 +48,30 @@
 (isa YellowAgent SorryAgents)
 (colorOfAgent YellowAgent yellow)
 
+(piecePosition Yellow1 47)
+(piecePosition Yellow2 0)
+(piecePosition Yellow3 0)
+(piecePosition Yellow4 0)
 
 
 ;;; cards
 ;;; added 2/23 below:
 (isa Sorry-Cards FirstOrderCollection)
-(isa Sorry-Cards-Pickable FirstOrderCollection)
 (genls Sorry-Cards PlayingCard)
-(genls Sorry-Cards-Pickable PlayingCard)
 ;;; ended adding below...
 
-(isa Sorry-One Sorry-Cards)
-(isa Sorry-One Sorry-Cards-Pickable)
-
-(isa Sorry-Two Sorry-Cards)
-(isa Sorry-Two Sorry-Cards-Pickable)
-
-(isa Sorry-Three Sorry-Cards)
-(isa Sorry-Three Sorry-Cards-Pickable)
-
-(isa Sorry-Four Sorry-Cards)
-(isa Sorry-Four Sorry-Cards-Pickable)
-
 (isa Sorry-Five Sorry-Cards)
-(isa Sorry-Five Sorry-Cards-Pickable)
-
-(isa Sorry-Seven Sorry-Cards)
-(isa Sorry-Seven Sorry-Cards-Pickable)
-;;; subset:
-(isa Sorry-Seven-Six Sorry-Cards)
-(isa Sorry-Seven-Five Sorry-Cards)
-(isa Sorry-Seven-Four Sorry-Cards)
-(isa Sorry-Seven-Three Sorry-Cards)
-(isa Sorry-Seven-Two Sorry-Cards)
-(isa Sorry-Seven-One Sorry-Cards)
-
 (isa Sorry-Eight Sorry-Cards)
-(isa Sorry-Eight Sorry-Cards-Pickable)
-
-(isa Sorry-Ten Sorry-Cards)
-(isa Sorry-Ten Sorry-Cards-Pickable)
-
 (isa Sorry-Eleven Sorry-Cards)
-(isa Sorry-Eleven Sorry-Cards-Pickable)
 
-(isa Sorry-Twelve Sorry-Cards)
-(isa Sorry-Twelve Sorry-Cards-Pickable)
 
-(isa Sorry-Sorry Sorry-Cards)
-(isa Sorry-Sorry Sorry-Cards-Pickable)
+;;; RandomMemberFn 
+;;; (TheClosedRetrievalSetOf ?card (isa ?card Sorry-Cards))))
 
-;;; (RandomMemberFn (TheSet Sorry-Cards-Pickable))
-;;; returns a random card
-;;; game start off with random card in KB
 
+;;; start with YellowAgent:
+(whoseTurn YellowAgent)
+(currCard Sorry-Eleven)
 
 ;;; swap turns:
 (<== (swapTurn ?next)
@@ -126,7 +100,7 @@
 (<== (noOppoAhead ?piece ?step)
       (piecePosition ?piece ?position)
       (evaluate ?destination (PlusFn ?position ?step))
-      (greaterThan ?destination 60))
+      (greaterThan ?destination 59))
 
 (<== (noOppoAhead ?piece ?step)
       (colorOfPiece ?piece ?color1)
@@ -158,7 +132,7 @@
       (colorOfAgent ?agent1 ?color1)
       (colorOfPiece ?piece1 ?color1)
       (colorOfPiece ?piece2 ?color1)
-      (uninferredSentence (piecePosition ?piece2 66))
+      (uninferredSentence (piecePosition ?piece2 65))
       (different ?piece1 ?piece2))
 
 (<== (winner ?agent1 ?piece1)
@@ -167,9 +141,9 @@
       (colorOfPiece ?piece2 ?color1)
       (colorOfPiece ?piece3 ?color1)
       (colorOfPiece ?piece4 ?color1)
-      (piecePosition ?piece2 66)
-      (piecePosition ?piece3 66)
-      (piecePosition ?piece4 66)
+      (piecePosition ?piece2 65)
+      (piecePosition ?piece3 65)
+      (piecePosition ?piece4 65)
       (different ?piece1 ?piece2 ?piece3 ?piece4))
 
 
@@ -187,23 +161,6 @@
       (piecePosition ?piece3 0)
       (piecePosition ?piece4 0))
 
-(<== (noneAtStart ?agent1)
-      (colorOfAgent ?agent1 ?color1)
-      (colorOfPiece ?piece1 ?color1)
-      (colorOfPiece ?piece2 ?color1)
-      (colorOfPiece ?piece3 ?color1)
-      (colorOfPiece ?piece4 ?color1)
-      (different ?piece1 ?piece2 ?piece3 ?piece4)
-      (piecePosition ?piece1 ?pos1)
-      (piecePosition ?piece2 ?pos2)
-      (piecePosition ?piece3 ?pos3)
-      (piecePosition ?piece4 ?pos4)
-      (greaterThan ?pos1 0)
-      (greaterThan ?pos2 0)
-      (greaterThan ?pos3 0)
-      (greaterThan ?pos4 0)
-      )
-
 
 ;;; For Rule 5 (can be used with Rule 1c)
 (<== (cannotMove ?piece ?step)
@@ -212,7 +169,7 @@
 (<== (cannotMove ?piece ?step)
       (piecePosition ?piece ?position)
       (evaluate ?nextPosition (PlusFn ?position ?step))
-      (lessThan 66 ?nextPosition))
+      (lessThan 65 ?nextPosition))
 
 (<== (allCannotMove ?agent1 ?step) 
       (colorOfAgent ?agent1 ?color1)
@@ -246,14 +203,6 @@
       (evaluate ?destination (PlusFn ?position ?step))
       (greaterThan ?destination 60))
 
-
-(<== (findNoOppoSwitch ?piece ?step)
-      (colorOfPiece ?piece ?color1)
-      (colorOfAgent ?agent2 ?color2)
-      (different ?color1 ?color2)
-      (allAtStart ?agent2)
-      )
-
 (<== (findNoOppoSwitch ?piece ?step)
       (colorOfPiece ?piece ?color1)
       (colorOfPiece ?piece1 ?color2)
@@ -273,7 +222,6 @@
       (evaluate ?destination (PlusFn ?pos1 ?step))
       (piecePosition ?piece2 ?pos2)
       (lessThan ?pos2 61)
-      (greaterThan ?po2 0)
       (evaluate ?pos1Home (DifferenceFn 66 ?destination))
       (getOppoPos ?pos2 ?pos2Oppo)
       (evaluate ?pos2Home (DifferenceFn 66 ?pos2Oppo))
@@ -292,11 +240,6 @@
       (greaterThan ?pos2Home ?pos1Home)
 )
 
-(<== (swapNotExists ?piece1 ?step ?piece2) ;;; piece1 is your piece, piece2 is opponent piece
-      (piecePosition ?piece2 ?pos2)
-      (greaterThan ?pos2 60)
-	  )
-
 (<== (getOppoPos ?myPos ?oppoPos)
       (greaterThan ?myPos 30)
       (evaluate ?a (DifferenceFn ?myPos 30))
@@ -308,77 +251,3 @@
       (evaluate ?a (PlusFn ?myPos 30))
       (unifies ?oppoPos ?a)
 )
-
-;;; cathy's horn clauses part
-;;; used in card 7 when arrives at home with extra steps, then check whether this extra steps can be used or not.
-;;; 1) not same color ahead (without arriving home), also the piece we can move shouldn't be at home.
-(<== (checkisValidRemainingMove ?piece1 ?piece2 ?remainingSteps)
-	 (colorOfPiece ?piece1 ?color)
-	 (colorOfPiece ?piece2 ?color)
-	 (colorOfPiece ?piece3 ?color)
-	 (colorOfPiece ?piece4 ?color)
-	 (different ?piece1 ?piece2 ?piece3 ?piece4)
-	 (piecePosition ?piece2 ?pos2)
-	 ;;; 3/9 added: should ensure it's not at the start point
-	 (greaterThan ?pos2 0)
-	 (evaluate ?newPos (PlusFn ?pos2 ?remainingSteps))
-	 (lessThan ?newPos 66)
-	 (uninferredSentence (piecePosition ?piece3 ?newPos))
-	 (uninferredSentence (piecePosition ?piece4 ?newPos)))
-
-;;; 2) with arriving home
-(<== (checkisValidRemainingMove ?piece1 ?piece2 ?remainingSteps)
-	 (colorOfPiece ?piece1 ?color)
-	 (colorOfPiece ?piece2 ?color)
-	 (different ?piece1 ?piece2)
-	 (piecePosition ?piece2 ?pos2)
-	 (evaluate ?newPos (PlusFn ?pos2 ?remainingSteps))
-	 (equals ?newPos 66))
-
-;;; cathy's horn clauses part
-;;; For Rule 7 (use the remaining steps to recursively select the card)
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 1)
-	 (unifies ?card Sorry-Seven-One))
-
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 2)
-	 (unifies ?card Sorry-Seven-Two))
-
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 3)
-	 (unifies ?card Sorry-Seven-Three))
-
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 4)
-	 (unifies ?card Sorry-Seven-Four))
-
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 5)
-	 (unifies ?card Sorry-Seven-Five))
-
-(<== (chooseCardWithSteps ?card ?steps)
-	 (equals ?steps 6)
-	 (unifies ?card Sorry-Seven-Six))
-	 
-(<== (notInKB ?piece1 ?position)
-	 (colorOfPiece ?piece1 ?color1)
-	 (colorOfPiece ?piece2 ?color1)
-	 (colorOfPiece ?piece3 ?color1)
-	 (colorOfPiece ?piece4 ?color1)
-	 (different ?piece1 ?piece2 ?piece3 ?piece4)
-      (uninferredSentence (piecePosition ?piece2 ?position))
-      (uninferredSentence (piecePosition ?piece3 ?position))
-      (uninferredSentence (piecePosition ?piece4 ?position)))
-	 
-(<== (notInKBOppo ?piece ?position)
-	 (colorOfPiece ?piece ?color1)
-	 (colorOfPiece ?piece1 ?color2)
-	 (different ?color1 ?color2)
-	 (colorOfPiece ?piece2 ?color2)
-	 (colorOfPiece ?piece3 ?color2)
-	 (colorOfPiece ?piece4 ?color2)
-	 (different ?piece1 ?piece2 ?piece3 ?piece4)
-	 (uninferredSentence (piecePosition ?piece2 ?position))
-	 (uninferredSentence (piecePosition ?piece3 ?position))
-	 (uninferredSentence (piecePosition ?piece4 ?position)))

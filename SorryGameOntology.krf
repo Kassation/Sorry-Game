@@ -2,26 +2,195 @@
 (genlMt SorryGameMt SorryGameOntologyMt)
 (genlMt Session-ReasonerPlanMt SorryGameMt)
 
-(isa moveSorryPiece ComplexActionPredicate)
-(arity moveSorryPiece 0)
+;;; (isa moveSorryPiece ComplexActionPredicate)
+;;; (arity moveSorryPiece 0)
+
+(isa moveSorryPiece1 ComplexActionPredicate)
+(arity moveSorryPiece1 0)
+
+(isa moveSorryPiece2 ComplexActionPredicate)
+(arity moveSorryPiece2 0)
+
+(isa moveSorryPiece3 ComplexActionPredicate)
+(arity moveSorryPiece3 0)
+
+(isa moveSorryPiece4 ComplexActionPredicate)
+(arity moveSorryPiece4 0)
+
+(isa moveSorryPiece5 ComplexActionPredicate)
+(arity moveSorryPiece5 0)
+
+(isa moveSorryPiece7 ComplexActionPredicate)
+(arity moveSorryPiece7 0)
+
+(isa moveSorryPiece8 ComplexActionPredicate)
+(arity moveSorryPiece8 0)
+
+(isa moveSorryPiece10 ComplexActionPredicate)
+(arity moveSorryPiece10 0)
+
+(isa moveSorryPiece11 ComplexActionPredicate)
+(arity moveSorryPiece11 0)
+
+(isa moveSorryPiece12 ComplexActionPredicate)
+(arity moveSorryPiece12 0)
+
+(isa moveSorryPieceSorry ComplexActionPredicate)
+(arity moveSorryPieceSorry 0)
+
+;;; added for card 7 - to move remaining steps
+(isa moveRemainingSteps ComplexActionPredicate)
+(arity moveRemainingSteps 2)
+
+(isa resetSorryBoard ComplexActionPredicate)
+(arity resetSorryBoard 0)
+
+(isa movePlayerPiece ComplexActionPredicate)
+(arity movePlayerPiece 2)
+(arg1Isa movePlayerPiece BoardPieces)
+(arg2Isa movePlayerPiece Integer)
+
+(isa newTurn ComplexActionPredicate)
+(arity newTurn 0)
+
+(isa playerMoveTwoPieces ComplexActionPredicate)
+(arity playerMoveTwoPieces 4)
+(arg1Isa playerMoveTwoPieces BoardPieces)
+(arg2Isa playerMoveTwoPieces Integer)
+(arg3Isa playerMoveTwoPieces BoardPieces)
+(arg4Isa playerMoveTwoPieces Integer)
+
+(isa knockOppo ComplexActionPredicate)
+(arity knockOppo 2)
+(arg1Isa knockOppo BoardPieces)
+(arg2Isa knockOppo Integer)
+
+(isa switchForEleven ComplexActionPredicate)
+(arity switchForEleven 2)
+(arg1Isa switchForEleven BoardPieces)
+(arg2Isa switchForEleven BoardPieces)
 
 (isa piecePosition Predicate)
 (arity piecePosition 2)
+(arg1Isa piecePosition BoardPieces)
+(arg2Isa piecePosition Integer)
 
 (isa colorOfAgent Predicate)
 (arity colorOfAgent 2)
+(arg1Isa colorOfAgent BoardPieces)
+(arg2Isa colorOfAgent SorryColors)
 
 (isa colorOfPiece Predicate)
 (arity colorOfPiece 2)
+(arg1Isa colorOfPiece BoardPieces)
+(arg2Isa colorOfPiece SorryColors)
 
 (isa currCard Predicate)
 (arity currCard 1)
+(arg1Isa currCard Sorry-Cards)
 
 (isa whoseTurn Predicate)
 (arity whoseTurn 1)
+(arg1Isa whoseTurn SorryAgents)
 
 (isa swapTurn Predicate)
 (arity swapTurn 1)
+(arg1Isa swapTurn SorryAgents)
 
 (isa gameWinner Predicate)
 (arity gameWinner 1)
+(arg1Isa gameWinner SorryAgents)
+
+(isa noSameColorAhead Predicate)
+(arity noSameColorAhead 2)
+(arg1Isa noSameColorAhead BoardPieces)
+(arg2Isa noSameColorAhead Integer)
+
+(isa noOppoAhead Predicate)
+(arity noOppoAhead 2)
+(arg1Isa noOppoAhead BoardPieces)
+(arg2Isa noOppoAhead Integer)
+
+(isa notWinner Predicate)
+(arity notWinner 2)
+(arg1Isa notWinner SorryAgents)
+(arg2Isa notWinner BoardPieces)
+
+(isa winner Predicate)
+(arity winner 2)
+(arg1Isa winner SorryAgents)
+(arg2Isa winner BoardPieces)
+
+(isa allAtStart Predicate)
+(arity allAtStart 1)
+(arg1Isa allAtStart SorryAgents)
+
+(isa noneAtStart Predicate)
+(arity noneAtStart 1)
+(arg1Isa noneAtStart SorryAgents)
+
+(isa cannotMove Predicate)
+(arity cannotMove 2)
+(arg1Isa cannotMove BoardPieces)
+(arg2Isa cannotMove Integer)
+
+(isa allCannotMove Predicate)
+(arity allCannotMove 2)
+(arg1Isa allCannotMove SorryAgents)
+(arg2Isa allCannotMove Integer)
+
+(isa findOppoSwitch Predicate)
+(arity findOppoSwitch 5)
+(arg1Isa findOppoSwitch BoardPieces)
+(arg2Isa findOppoSwitch Integer)
+(arg3Isa findOppoSwitch BoardPieces)
+(arg4Isa findOppoSwitch Integer)
+(arg5Isa findOppoSwitch Integer)
+
+(isa findNoOppoSwitch Predicate)
+(arity findNoOppoSwitch 2)
+(arg1Isa findNoOppoSwitch BoardPieces)
+(arg2Isa findNoOppoSwitch Integer)
+
+;;; (isa swapPos Predicate)
+;;; (arity swapPos 2)
+;;; (arg1Isa swapPos Integer)
+;;; (arg2Isa swapPos Integer)
+
+(isa checkSlide Predicate)
+(arity checkSlide 2)
+(arg1Isa checkSlide Integer)
+(arg2Isa checkSlide Integer)
+
+(isa swapExists Predicate)
+(arity swapExists 3)
+(arg1Isa swapExists BoardPieces)
+(arg2Isa swapExists Integer)
+(arg3Isa swapExists BoardPieces)
+
+(isa getOppoPos Predicate)
+(arity getOppoPos 2)
+(arg1Isa getOppoPos Integer)
+(arg2Isa getOppoPos Integer)
+
+
+;;; cathy's part
+(isa checkisValidRemainingMove Predicate)
+(arity checkisValidRemainingMove 3)
+(arg1Isa checkisValidRemainingMove BoardPieces)
+(arg2Isa checkisValidRemainingMove BoardPieces)
+(arg3Isa checkisValidRemainingMove Integer)
+
+(isa chooseCardWithSteps Predicate)
+(arity chooseCardWithSteps 2)
+(arg1Isa chooseCardWithSteps Sorry-Cards-Pickable)
+
+(isa notInKB Predicate)
+(arity notInKB 2)
+(arg1Isa notInKB BoardPieces)
+(arg2Isa notInKB Integer)
+
+(isa notInKBOppo Predicate)
+(arity notInKBOppo 2)
+(arg1Isa notInKBOppo BoardPieces)
+(arg2Isa notInKBOppo Integer)
